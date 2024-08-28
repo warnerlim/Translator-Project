@@ -2,6 +2,7 @@ import sys
 import os
 from ytdlp import yt_download_dlp
 from jp2engtxt import whisper_function
+from gpt4translate import translate_file
 
 def download_file(url):
     yt_download_dlp(video_url=url)
@@ -10,6 +11,12 @@ def download_file(url):
 def transcribe_audio():
     whisper_function()
     print("Audio transcription completed.")
+
+def translate_files():
+    input_file_path = 'raw_text.txt'
+    output_file_path = 'raw_english_text.txt'
+    translate_file(input_file_path, output_file_path)
+    print("Translation completed.")
 
 def delete_file():
     file_paths = ["input_audio.mp3", "input.mp4"]
@@ -31,6 +38,8 @@ def main(action, input_data=None):
         return download_file(input_data)
     elif action == 'Transcribe':
         return transcribe_audio()
+    elif action == 'Translate':
+        return translate_files()
     elif action == 'Delete':
         return delete_file()
     elif action == 'Upload':

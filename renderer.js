@@ -15,7 +15,11 @@ const emitter = new EventEmitter();
   document.getElementById('Delete').addEventListener('click', () => {
     ipcRenderer.send('run-python', { action: 'Delete' });
   });
-  
+
+  document.getElementById('Translate').addEventListener('click', () => {
+    ipcRenderer.send('run-python', { action: 'Translate' });
+  });
+
   document.getElementById('Upload').addEventListener('click', () => {
     ipcRenderer.send('run-python', 'Upload');
   });
