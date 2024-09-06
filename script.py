@@ -3,6 +3,7 @@ import os
 from ytdlp import yt_download_dlp
 from jp2engtxt import whisper_function
 from gpt4translate import translate_file
+from txt_to_srt import convert_txt_to_srt
 
 def download_file(url):
     yt_download_dlp(video_url=url)
@@ -30,7 +31,26 @@ def delete_file():
             print(f"Error deleting {file_path}: {e}")
     return "Deleting file..."
 
+def srt_converter():
+    txt_file_path = 'raw_english_text.txt'
+    srt_file_path = 'output.srt'
+    convert_txt_to_srt(txt_file_path, srt_file_path)
+
+def apply_subtitles():
+    input_file = 'input.mp4'
+    output_file = 'output_video.mp4'
+    subtitle_file = 'output.srt'
+    font_file = 'OpenSans-Regular.ttf'
+    command = (
+        f'ffmpeg -i {input_file} -vf "subtitles={subtitle_file}:'
+        f'force_style=\'Alignment=2,FontName={font_file},FontSize=24,PrimaryColour=&HFFFFE0&\'" '
+        f'-c:a copy {output_file}'
+    )
+    os.system(command)
+
 def upload_file():
+    srt_converter()
+    apply_subtitles()
     return "Uploading file..."
 
 def main(action, input_data=None):

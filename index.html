@@ -90,32 +90,38 @@
     <div class="container">
         <div id="downloadPage" class="page active">
             <h1>Download Files</h1>
-            <input type="text" id="userInput" placeholder="Enter your input here">
+            <input type="text" id="downloadInput" placeholder="Enter your input here">
             <button id="Download">Download File</button>
-            <p id="output"></p>
+            <p id="downloadOutput"></p>
         </div>
 
         <div id="transcribePage" class="page">
             <h1>Transcribe Files</h1>
+            <p>There's no logging displayed when button is pressed, so wait...</p>
             <button id="Transcribe">Transcribe File</button>
+            <p id="transcribeOutput"></p>
             <!-- Content for transcribing files -->
         </div>
 
         <div id="translatePage" class="page">
             <h1>Translate Files</h1>
+            <p>There's no logging displayed when button is pressed, so wait...</p>
             <button id="Translate">Translate File</button>
+            <p id="translateOutput"></p>
             <!-- Content for translating files -->
         </div>
 
         <div id="uploadPage" class="page">
             <h1>Upload Files</h1>
             <button id="Upload">Upload File</button>
+            <p id="uploadOutput"></p>
             <!-- Content for uploading files -->
         </div>
 
         <div id="deletePage" class="page">
             <h1>Delete Files</h1>
             <button id="Delete">Delete File</button>
+            <p id="deleteOutput"></p>
             <!-- Content for deleting files -->
         </div>
     </div>
@@ -135,3 +141,7 @@
     <script src="renderer.js"></script>
 </body>
 </html>
+
+
+
+<button id="Translate">Translate File</button>

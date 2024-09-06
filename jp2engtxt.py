@@ -15,7 +15,7 @@ def whisper_function():
     model = WhisperModel("large-v2", device="cuda", compute_type="float16")
 
     # Transcribe the audio file
-    segments, _ = model.transcribe(audio="input_audio.mp3", hallucination_silence_threshold=5, condition_on_previous_text=False, vad_filter=True)
+    segments, _ = model.transcribe(audio="input_audio.mp3", hallucination_silence_threshold=3, condition_on_previous_text=False, vad_filter=True)
     segment_list = list(segments)
 
     # Open the text file with UTF-8 encoding to handle Japanese characters

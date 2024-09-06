@@ -33,14 +33,16 @@ app.on('window-all-closed', () => {
 });
 
 ipcMain.on('run-python', (event, arg) => {
-  const { action, input } = arg;
+  const { action, input, target } = arg;
   const pythonProcess = spawn('python', ['script.py', action, input]);
-  
+
   pythonProcess.stdout.on('data', (data) => {
-    event.reply('python-result', data.toString());
+      const message = data.toString();
+      event.sender.send('update-output', message, target);
+  });
 
   pythonProcess.stderr.on('data', (data) => {
-    event.reply('python-result', `Error: ${data.toString()}`);
-  });
+      const errorMessage = `Error: ${data.toString()}`;
+      event.sender.send('update-output', errorMessage, target);
   });
 });

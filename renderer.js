@@ -1,29 +1,34 @@
 const { ipcRenderer } = require('electron');
 const EventEmitter = require('events');
 const emitter = new EventEmitter();
+emitter.setMaxListeners(20);
 
   document.getElementById('Download').addEventListener('click', () => {
-      emitter.setMaxListeners(20);
-      const userInput = document.getElementById('userInput').value;
-      ipcRenderer.send('run-python', { action: 'Download', input: userInput });
+      const userInput = document.getElementById('downloadInput').value;
+      runPython('Download', userInput, 'downloadOutput');
     });
 
   document.getElementById('Transcribe').addEventListener('click', () => {
-    ipcRenderer.send('run-python', { action: 'Transcribe' });
-  });
-
-  document.getElementById('Delete').addEventListener('click', () => {
-    ipcRenderer.send('run-python', { action: 'Delete' });
+    runPython('Transcribe', null, 'transcribeOutput'); // Replace null for dynamic file naming in the future. E.g: input.mp4 would be here as it's name instead
   });
 
   document.getElementById('Translate').addEventListener('click', () => {
-    ipcRenderer.send('run-python', { action: 'Translate' });
-  });
-
-  document.getElementById('Upload').addEventListener('click', () => {
-    ipcRenderer.send('run-python', 'Upload');
+    runPython('Translate', null, 'translateOutput'); // Replace null for dynamic file naming in the future. E.g: raw_text.txt would be here as it's name instead
   });
   
-  ipcRenderer.on('python-result', (event, result) => {
-    document.getElementById('output').innerText = result;
+  document.getElementById('Upload').addEventListener('click', () => {
+    runPython('Upload', null, 'UploadOutput');
   });
+  
+  document.getElementById('Delete').addEventListener('click', () => {
+    runPython('Delete', null, 'deleteOutput');
+  });
+
+  ipcRenderer.on('update-output', (event, message, target) => {
+    document.getElementById(target).innerText += message + '\n';
+  });
+
+  // Function to run Python script
+  function runPython(action, input, target) {
+      ipcRenderer.send('run-python', { action, input, target });
+}

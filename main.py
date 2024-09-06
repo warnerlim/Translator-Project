@@ -15,7 +15,7 @@ def transcribe_audio():
 
 def translate_transcription():
     input_file_path = 'raw_text.txt'
-    output_file_path = 'raw_english_text2.txt'
+    output_file_path = 'raw_english_text.txt'
     translate_file(input_file_path, output_file_path)
     print("Translation completed.")
 
